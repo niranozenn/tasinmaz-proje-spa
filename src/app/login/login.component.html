@@ -1,0 +1,37 @@
+ 
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <form [formGroup]="loginAddForm" (ngSubmit)="add()" >
+        <h1>Sistem Girişi</h1>
+        <div class="form-field">
+          <input 
+            type="text" 
+            formControlName="userName" 
+            id="username" 
+            placeholder="Email"
+            [ngClass]="{ 'is-invalid': loginAddForm.get('userName').errors && loginAddForm.get('userName').touched }"
+            required>
+            <div class="invalid-feedback" *ngIf="loginAddForm.get('userName').errors?.required">Kullanıcı adı zorunludur.</div>
+
+        </div>
+        
+        <div class="form-field">
+          <input 
+            type="password" 
+            formControlName="password" 
+            id="password" 
+            placeholder="Şifre" 
+            [ngClass]="{ 'is-invalid': loginAddForm.get('password').errors && loginAddForm.get('password').touched }"
+            required>
+            <div class="invalid-feedback" *ngIf="loginAddForm.get('password').errors?.minlength">Şifre en az 8 karakter içermelidir.</div>
+            <div class="invalid-feedback" *ngIf="loginAddForm.get('password').errors?.required">Şifre zorunludur.</div>
+          </div>
+
+
+        <button (click)="navigateToList()" type="submit" class="btn mt-3">Giriş</button>
+        
+      </form>
+    </div>
+  </div>
+</body>

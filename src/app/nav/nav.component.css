@@ -1,0 +1,28 @@
+
+.baslik{
+    text-align: left;
+}
+nav{
+    height: 60px;
+}
+form{
+    height: 50px;
+
+}
+.nav nav-tab{
+    font-size:medium;
+}
+
+.nav-link {
+    color: #000;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: color 0.3s, background-color 0.3s; /* Renk değişikliklerini 0.3 saniyede animasyonla geçir */
+}
+
+.nav-link:hover {
+    color: #f6f9fa;
+    background-color: #3b4acf;
+}
+
+  

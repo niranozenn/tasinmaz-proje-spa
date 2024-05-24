@@ -1,0 +1,76 @@
+
+<div *ngIf="showSuccessAlert" class="alert alert-dismissible alert-success">
+  <button type="button" class="btn-close" (click)="showSuccessAlert = false"></button>
+  <strong>Taşınmaz başarıyla eklendi.</strong> 
+</div>
+
+<app-map>
+</app-map>
+
+
+<form [formGroup]="tasinmazForm"  (ngSubmit)="tasinmazAdd()" class="form-container">
+
+  <fieldset>
+    <legend class="baslik">Taşınmaz Ekleme</legend>
+
+    <div class="form-group mt-2">
+      <label for="sehirSelect1">İl Adı</label>
+      <select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()">
+        <option *ngFor="let sehir of sehirler" [value]="sehir.id">{{ sehir.ad }}</option>
+      </select>
+    </div>
+    
+    <div class="form-group mt-2">
+      <label for="ilceSelect1">İlçe Adı</label>
+      <select class="form-control" id="ilceSelect1" formControlName="ilce" (change)="onIlceChange()">
+        <option *ngFor="let ilce of ilceler" [value]="ilce.id">{{ ilce.ad }}</option>
+      </select>
+    </div>
+    
+    <div class="form-group mt-2">
+      <label for="mahalleSelect1">Mahalle Adı</label>
+      <select class="form-control" id="mahalleSelect1" formControlName="mahalleId">
+        <option *ngFor="let mahalle of mahalleler" [value]="mahalle.id">{{ mahalle.ad }}</option>
+      </select>
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="adaInput">Ada</label>
+      <input type="text" class="form-control" id="adaInput" placeholder="Ada" formControlName="ada" autocomplete="off">
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="parselInput">Parsel</label>
+      <input type="text" class="form-control" id="parselInput" placeholder="Parsel" formControlName="parsel" autocomplete="off">
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="adrestInput">Adres</label>
+      <input type="text" class="form-control" id="adrestInput" placeholder="Adres" formControlName="adres" autocomplete="off">
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="nitelikInput">Nitelik</label>
+      <input type="text" class="form-control" id="nitelikInput" placeholder="Nitelik" formControlName="nitelik" autocomplete="off">
+    </div>
+    
+    <div class="form-group mt-2">
+      <label for="coordinatxInput">Koordinat X</label>
+      <input type="text" class="form-control" id="coordinatxInput" placeholder="Koordinat X" formControlName="koordinatX" autocomplete="off">
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="coordinatyInput">Koordinat Y</label>
+      <input type="text" class="form-control" id="coordinatyInput" placeholder="Koordinat Y" formControlName="koordinatY" autocomplete="off">
+    </div>
+
+
+    <div class="button mt-2 d-grid gap-2 text-center">
+      <button class="btn btn-lg btn-outline-success  btn-success" type="submit" >Ekle</button>
+    </div>
+
+    
+    
+  </fieldset>
+</form>
+

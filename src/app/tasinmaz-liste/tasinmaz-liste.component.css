@@ -1,0 +1,65 @@
+.navbar {
+  background-color: #4d8cc1; /* Daha canlı bir mavi tonu */
+}
+
+.navbar-brand, .nav-link {
+  color: #4169e1; /* Mavi */
+}
+
+.navbar-brand:hover, .nav-link:hover {
+  color: #000080; /* Koyu mavi */
+  text-decoration: underline; /* Hover'da altı çizgi ekleyin */
+}
+
+
+.table {
+  border-spacing: 0;
+  margin: 0 auto;
+  max-width: 83%;
+  border-radius: 10px; /* Yuvarlak kenarlar */
+  border-collapse: separate; /* Kenarlarını yuvarlamak için */
+  border: 2px solid #ccc; /* Kenar rengi */
+  
+}
+
+.table th, .table td {
+  border: 1px solid #ccc; /* Başlık ve hücre kenarları */
+ 
+  font-size: medium;
+  
+}
+
+.table th {
+  background-color: #f2f2f2; /* Başlık arka plan rengi */
+  font-weight: bold; /* Kalın font */
+  text-align: center; /* Hücre metin hizalaması */
+ 
+}
+
+.table td {
+ 
+  text-align: center;
+}
+
+.table-wrapper {
+
+ 
+  padding: 0 20px; /* Bu kısmı artırarak sağ ve sol boşluk ayarı yapabilirsiniz */
+}
+footer {
+ 
+  text-align: center;
+}
+footer button {
+  margin: 0 5px; 
+  z-index: 1;
+}
+
+.pagination-wrapper{
+  margin-top: 5px;
+}
+
+#ekleButton {
+  color: green;
+}
+
