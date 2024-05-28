@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { TasinmazAddComponent } from './tasinmaz-add/tasinmaz-add.component';
 import { TasinmazUpdateComponent } from './tasinmaz-update/tasinmaz-update.component';
 import { MapComponent } from './map/map.component';
+import { AuthService } from './services/auth.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,

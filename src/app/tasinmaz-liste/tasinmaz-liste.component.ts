@@ -61,10 +61,14 @@ export class TasinmazListeComponent implements OnInit {
   }
 
   deleteTasinmaz() {
+    const alertDisplayTime=3000;
     if (this.selectedTasinmazId) {
       this.tasinmazService.deleteTasinmaz(this.selectedTasinmazId).subscribe(() => {
         this.alertifyService.dangerNotification
         this.showDangerAlert=true; 
+        setTimeout(()=>{
+          this.showDangerAlert=false
+        }, alertDisplayTime);
          this.getTasinmazlar().subscribe(data => {
            this.tasinmazlar = data;
          });

@@ -92,6 +92,8 @@ export class TasinmazUpdateComponent implements OnInit {
   }
 
   updateTasinmaz() {
+    const alertDisplayTime = 3000; // 3 saniye
+
     if (this.tasinmazForm.valid) {
       const updatedTasinmaz: Tasinmaz = {
         ...this.tasinmazForm.value,
@@ -110,11 +112,16 @@ export class TasinmazUpdateComponent implements OnInit {
 
           
       this.tasinmazService.updateTasinmaz(this.tasinmazId, this.updatedTasinmaz).subscribe(() => {
-        this.alertifyService.warningNotification
-        this.showWarningAlert=true; 
-        //this.router.navigate(['/tasinmaz-liste']);
+        this.showWarningAlert = true;
+
+        // Belirlenen süre sonunda uyarı mesajını gizlemek için setTimeout kullanın
+        setTimeout(() => {
+          this.showWarningAlert = false;
+        }, alertDisplayTime);
+
+        // Yönlendirme işlemi
+        // this.router.navigate(['/tasinmaz-liste']);
       });
     }
   }
 }
-

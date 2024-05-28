@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-declare let alertify:any;
+declare let alertify: any;
 
 @Injectable({ //global olarak default ekleyen servis
   providedIn: 'root'
@@ -20,6 +20,13 @@ export class AlertifyService {
   }
   warningNotification(message: string): void {
     alertify.notify(message, 'warning', 5);
+  }
+  error(message: string) {
+    alertify.error(message);
+  }
+
+  success(message: string) {
+    alertify.success(message);
   }
 
 

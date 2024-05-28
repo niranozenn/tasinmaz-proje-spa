@@ -89,6 +89,7 @@ export class TasinmazAddComponent implements OnInit {
   
   tasinmazAdd(): void 
   {
+    const alertDisplayTime=3000;
     if (this.tasinmazForm.valid) 
     {
       this.newTasinmaz.sehir = parseInt(this.tasinmazForm.get("sehir").value);
@@ -104,7 +105,10 @@ export class TasinmazAddComponent implements OnInit {
       this.tasinmazService.addTasinmaz(this.newTasinmaz).subscribe(response => 
       {
         this.alertifyService.successNotification
-        this.showSuccessAlert = true; // Success alert'ı göstermek için bir bayrak
+        this.showSuccessAlert = true; 
+        setTimeout(()=>{
+          this.showSuccessAlert=false;
+        },alertDisplayTime)
       }, error => 
       {
         console.error('Taşınmaz eklenirken bir hata oluştu', error);
