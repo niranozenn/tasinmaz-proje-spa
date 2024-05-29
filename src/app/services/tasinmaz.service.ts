@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Ilce } from '../models/ilce';
 import { Mahalle } from '../models/mahalle';
 import { Tasinmaz } from '../models/tasinmaz';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -27,11 +26,16 @@ export class TasinmazService {
   getMahallelerByIlceId(ilceId : number): Observable<Mahalle[]> {
     return this.http.get<Mahalle[]>(`${this.path}mahalle/getBySehirId/${ilceId}`);
   }
-
+  getTasinmazlar(): Observable<Tasinmaz[]> {
+    return this.http.get<Tasinmaz[]>("https://localhost:44364/api/tasinmaz/getValues")
+  }
   getTasinmaz(tasinmazId: number): Observable<Tasinmaz[]> {
     return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getTasinmazById/${tasinmazId}`);
   }
-
+  getTasinmazByUserId(userId: number): Observable<Tasinmaz[]> {
+    return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getByUserId?userId=${userId}`);
+  }
+ 
   addTasinmaz(tasinmaz): Observable<Tasinmaz[]> {
     return this.http.post<Tasinmaz[]>(`${this.path}tasinmaz/add`, tasinmaz);
     //return this.http.post<Tasinmaz>("https://localhost:44364/api/tasinmaz/add/", newTasinmaz);

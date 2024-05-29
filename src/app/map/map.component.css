@@ -1,8 +1,7 @@
-.map {
-    width: 100%;
-    height: 35vh;
-  }
 
-  .container{
-    margin-bottom: 20px;
+  .map {
+    width: 100%;
+    height: 400px; /* Örnek bir yükseklik */
+    margin-bottom: 100px;
   }
+  

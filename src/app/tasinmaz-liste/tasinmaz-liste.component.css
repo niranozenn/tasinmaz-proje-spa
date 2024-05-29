@@ -13,7 +13,8 @@
 
 
 .table {
-  border-spacing: 0;
+  border-spacing: 0px;
+  
   margin: 0 auto;
   max-width: 83%;
   border-radius: 10px; /* Yuvarlak kenarlar */
@@ -24,7 +25,7 @@
 
 .table th, .table td {
   border: 1px solid #ccc; /* Başlık ve hücre kenarları */
- 
+
   font-size: medium;
   
 }

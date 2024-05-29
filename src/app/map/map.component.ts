@@ -7,9 +7,7 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import { Coordinate } from 'ol/coordinate';
 import VectorSource from 'ol/source/Vector';
-import ScaleLine from 'ol/control/ScaleLine'; // ScaleLine özelliğini ekleyin
-
-
+import ScaleLine from 'ol/control/ScaleLine';
 
 @Component({
   selector: 'app-map',
@@ -25,6 +23,7 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
     this.map = new Map({
       target: 'map',
       layers: [
@@ -36,18 +35,26 @@ export class MapComponent implements OnInit {
         center: fromLonLat([35, 39]), 
         zoom: 5
       }),
-      controls: [ // Kontrolleri ekleyin
-      new ScaleLine() // Ölçek çizgisi kontrolünü ekleyin
+      controls: [ 
     ]
     });
+    
 
     this.map.on('click', (evt) => {
       var coordinate = evt.coordinate; // Tıklanan konumu al
       this.coordinateClicked.emit(coordinate); // Koordinatları emit et
       console.log(coordinate); 
     });
+    var scale = new ScaleLine({
+      bar: true
+    });  
+    this.map.addControl(scale)
   }
-}
+
+    
+  }
+  
+
 
     
 

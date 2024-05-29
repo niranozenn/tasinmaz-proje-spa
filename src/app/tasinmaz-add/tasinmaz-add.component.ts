@@ -15,6 +15,7 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import { MapComponent } from '../map/map.component';
+import { AuthService } from "../services/auth.service";
 
 
 
@@ -40,6 +41,7 @@ export class TasinmazAddComponent implements OnInit {
     private tasinmazService: TasinmazService,
     private alertifyService: AlertifyService,
     private router: Router,
+    private authService: AuthService
 
   ) {}
 
@@ -104,6 +106,8 @@ export class TasinmazAddComponent implements OnInit {
       this.newTasinmaz.adres = this.tasinmazForm.get("adres").value;
       this.newTasinmaz.koordinatX = this.tasinmazForm.get("koordinatX").value;
       this.newTasinmaz.koordinatY = this.tasinmazForm.get("koordinatY").value;
+      console.log(this.authService.userId);
+      this.newTasinmaz.userId=this.authService.userId;
 
       this.tasinmazService.addTasinmaz(this.newTasinmaz).subscribe(response => 
       {
