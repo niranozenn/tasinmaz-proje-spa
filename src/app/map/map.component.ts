@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import 'ol/ol.css';
 import Map from 'ol/Map';
@@ -18,12 +19,15 @@ export class MapComponent implements OnInit {
   @Output() coordinateClicked = new EventEmitter<Coordinate>();
   map: Map;
   vectorSource: VectorSource;
-
+  mousemove: Coordinate; // Fare konumunu tutacak değişken
+  mousemoves: string;
+  mouseX: number;
+  mouseY: number;
+  isMouseOver: boolean;
 
   constructor() { }
 
   ngOnInit() {
-
     this.map = new Map({
       target: 'map',
       layers: [
@@ -35,28 +39,31 @@ export class MapComponent implements OnInit {
         center: fromLonLat([35, 39]), 
         zoom: 5
       }),
-      controls: [ 
-    ]
+      controls: []
     });
-    
 
+    var scale = new ScaleLine({
+      bar: true
+    });  
+    this.map.addControl(scale);
+
+    this.mousePosition(); // Fare konumunu alma işlevini çağırın
+  }
+
+  mousePosition() {
+    this.map.on('pointermove', (evt) => {
+      this.mousemove = evt.coordinate; // Fare konumunu değişkene ata
+      console.log(this.mousemove); // Fare konumunu konsola yazdır
+    });
+  }
+  
+
+  coordinatedClicked() {
     this.map.on('click', (evt) => {
       var coordinate = evt.coordinate; // Tıklanan konumu al
       this.coordinateClicked.emit(coordinate); // Koordinatları emit et
       console.log(coordinate); 
     });
-    var scale = new ScaleLine({
-      bar: true
-    });  
-    this.map.addControl(scale)
   }
 
-    
-  }
-  
-
-
-    
-
-    
-  
+}

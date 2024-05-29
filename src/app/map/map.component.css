@@ -2,6 +2,16 @@
   .map {
     width: 100%;
     height: 400px; /* Örnek bir yükseklik */
-    margin-bottom: 100px;
+  
+  }
+
+  .mouse-position {
+    align-items:baseline;
+    text-align: right;
+    position:sticky;
+    padding: 5px;
+    border-radius: 5px;
+    pointer-events: none;
+    
   }
   

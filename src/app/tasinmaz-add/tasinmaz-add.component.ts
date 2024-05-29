@@ -16,6 +16,12 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import { MapComponent } from '../map/map.component';
 import { AuthService } from "../services/auth.service";
+import {  Output, EventEmitter } from '@angular/core';
+import 'ol/ol.css';
+import { Coordinate } from 'ol/coordinate';
+import VectorSource from 'ol/source/Vector';
+import ScaleLine from 'ol/control/ScaleLine';
+
 
 
 
@@ -27,6 +33,7 @@ import { AuthService } from "../services/auth.service";
 })
 export class TasinmazAddComponent implements OnInit {
   @ViewChild(MapComponent) mapComponent: MapComponent;
+  @Output() coordinateClicked = new EventEmitter<Coordinate>();
  
   newTasinmaz: Tasinmaz = new Tasinmaz();
   tasinmazForm: FormGroup;
@@ -60,8 +67,11 @@ export class TasinmazAddComponent implements OnInit {
   this.tasinmazService.getSehirler().subscribe((data) => {
     this.sehirler = data;
 });
+  
+
   }
   ngAfterViewInit() {
+    this.mapComponent.coordinatedClicked();
     this.mapComponent.coordinateClicked.subscribe((coordinate: [number, number]) => {
       this.tasinmazForm.patchValue({
         
@@ -90,6 +100,7 @@ export class TasinmazAddComponent implements OnInit {
       });
     }
   }
+  
 
   
   tasinmazAdd(): void 
