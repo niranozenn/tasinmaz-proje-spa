@@ -94,6 +94,7 @@ export class TasinmazAddComponent implements OnInit {
   
   tasinmazAdd(): void 
   {
+    const userId = this.authService.getUserId();
     const alertDisplayTime=3000;
     if (this.tasinmazForm.valid) 
     {
@@ -106,8 +107,7 @@ export class TasinmazAddComponent implements OnInit {
       this.newTasinmaz.adres = this.tasinmazForm.get("adres").value;
       this.newTasinmaz.koordinatX = this.tasinmazForm.get("koordinatX").value;
       this.newTasinmaz.koordinatY = this.tasinmazForm.get("koordinatY").value;
-      console.log(this.authService.userId);
-      this.newTasinmaz.userId=this.authService.userId;
+      this.newTasinmaz.userId=userId;
 
       this.tasinmazService.addTasinmaz(this.newTasinmaz).subscribe(response => 
       {
