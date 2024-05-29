@@ -58,23 +58,30 @@ body {
   margin-top: 20px;
 }
 
-
 .button .btn:hover {
   background-color: rgb(184, 184, 0); /* Hover rengi */
 }
 
-
-
-.button button { /* Butonu ve içeriğini ortalar */
-  padding: 15px 30px; /* Butonun iç içeriğinden kenarlara olan boşluk */
-
-  color: #fff; /* Yazı rengi */
-  border: none; /* Kenarlık yok */
-  transition: background-color 0.3s ease; /* Geçiş efekti */
-  font-size: 1.2rem; /* Yazı tipi boyutu */
+.button button { 
+  padding: 15px 30px; 
+  color: #fff; 
+  border: none; 
+  transition: background-color 0.3s ease; 
+  font-size: 1.2rem; 
   align-items: center;
   margin-right: 35%;
   margin-top: 20px;
 }
 
+.alert{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500; /* Gerekirse sayfadaki diğer elemanların üstüne çıkması için */
+  width: auto;
+}
 

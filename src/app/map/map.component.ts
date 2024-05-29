@@ -7,6 +7,8 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import { Coordinate } from 'ol/coordinate';
 import VectorSource from 'ol/source/Vector';
+import ScaleLine from 'ol/control/ScaleLine'; // ScaleLine özelliğini ekleyin
+
 
 
 @Component({
@@ -31,9 +33,12 @@ export class MapComponent implements OnInit {
         })
       ],
       view: new View({
-        center: fromLonLat([35, 39]), // Türkiye'nin ortalama koordinatları
-        zoom: 5 // Yakınlaştırma seviyesi
-      })
+        center: fromLonLat([35, 39]), 
+        zoom: 5
+      }),
+      controls: [ // Kontrolleri ekleyin
+      new ScaleLine() // Ölçek çizgisi kontrolünü ekleyin
+    ]
     });
 
     this.map.on('click', (evt) => {

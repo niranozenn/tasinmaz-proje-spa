@@ -1,7 +1,14 @@
+
+
 <div *ngIf="showDangerAlert" class="alert alert-dismissible alert-danger">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
   <strong>Taşınmaz Silindi!</strong> 
 </div>
+
+<div *ngIf="showWarningAlert" class="alert alert-warning">
+  <h6 class="alert-heading">Lütfen işlem yapmak istediğiniz taşınmazı seçin</h6>
+</div>
+
+
 
 <app-nav></app-nav>
 <app-map></app-map>

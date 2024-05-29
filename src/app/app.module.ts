@@ -35,7 +35,6 @@ import { AuthService } from './services/auth.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-    userName: String;
-    password: String;
+   
     
 }

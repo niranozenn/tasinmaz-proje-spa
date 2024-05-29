@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 declare let alertify: any;
 
 @Injectable({ //global olarak default ekleyen servis
@@ -25,8 +27,26 @@ export class AlertifyService {
     alertify.error(message);
   }
 
-  success(message: string) {
+  success(message: string):void {
     alertify.success(message);
+  }
+
+  warning(message: string, onConfirm: () => void) :void{
+  () => { // Evet'e tıklandığında
+    onConfirm();
+  };
+}
+  
+ 
+
+  confirm(message: string, onConfirm: () => void, onCancel: () => void): void {
+    alertify.confirm(message,
+      () => { // Evet'e tıklandığında
+        onConfirm();
+      },
+      () => { // Hayır'a tıklandığında
+        onCancel();
+      });
   }
 
 

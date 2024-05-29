@@ -6,6 +6,7 @@ import { Ilce } from "../models/ilce";
 import { Mahalle } from "../models/mahalle";
 import { Tasinmaz } from "../models/tasinmaz";
 import { AlertifyService } from "../services/alertify.service";
+import { Router } from "@angular/router";
 import alertify from 'alertifyjs';
 import 'ol/ol.css';
 import Map from 'ol/Map';
@@ -37,7 +38,9 @@ export class TasinmazAddComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private tasinmazService: TasinmazService,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private router: Router,
+
   ) {}
 
   ngOnInit() {
@@ -108,6 +111,8 @@ export class TasinmazAddComponent implements OnInit {
         this.showSuccessAlert = true; 
         setTimeout(()=>{
           this.showSuccessAlert=false;
+          this.router.navigate(["/tasinmaz-liste"]);
+
         },alertDisplayTime)
       }, error => 
       {

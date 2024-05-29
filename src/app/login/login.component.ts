@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {     
       this.loginForm = new FormGroup({
-        userName: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required])
+        userName: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required, Validators.minLength(8)])
       }); 
     }
     login(){
       this.authService.login(this.loginUser);
+      this.loginUser = Object.assign({}, this.loginForm.value);
     }
     /*logOut(){
       this.authService.logOut();

@@ -63,3 +63,22 @@ footer button {
   color: green;
 }
 
+.alert{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 500; 
+  width: auto;
+}
+
+
+.alert.alert-warning {
+  /* Sadece warning tipindeki alert mesajları için özel stiller */
+  background-color: #ffeeba;
+  border-color: #ffc107;
+  color: #856404;
+}
