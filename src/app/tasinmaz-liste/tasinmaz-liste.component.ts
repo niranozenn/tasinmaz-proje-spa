@@ -6,6 +6,7 @@ import { TasinmazService } from "../services/tasinmaz.service";
 import { FormGroup, FormControl } from "@angular/forms";
 import { AlertifyService } from "../services/alertify.service";
 import { AuthService } from "../services/auth.service";
+import { LoginGuardService } from "../services/login-guard.service";
 @Component({
   selector: "app-tasinmaz-liste",
   templateUrl: "./tasinmaz-liste.component.html",
@@ -18,7 +19,8 @@ export class TasinmazListeComponent implements OnInit {
     private alertifyService: AlertifyService,
     private router: Router,
     private tasinmazService: TasinmazService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loginGuard:LoginGuardService
   ) {}
 
   selectedTasinmazId: number | null = null;
@@ -43,7 +45,9 @@ export class TasinmazListeComponent implements OnInit {
   }
 
   navigateToAddPage() {
-    this.router.navigate(["/tasinmaz-add"]); // Yönlendirme yap
+    if(this.authService.isLoggedIn)
+      this.router.navigate(["/tasinmaz-add"]); // Yönlendirme yap
+   
   }
 
   onCheckboxChange(tasinmazId: number, event: any) {

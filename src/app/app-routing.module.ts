@@ -5,15 +5,16 @@ import { LoginComponent } from './login/login.component';
 import { TasinmazAddComponent } from './tasinmaz-add/tasinmaz-add.component';
 import { TasinmazUpdateComponent } from './tasinmaz-update/tasinmaz-update.component';
 import { MapComponent } from '../app/map/map.component'
+import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'tasinmaz-liste', component: TasinmazListeComponent},
-  { path: 'tasinmaz-add', component: TasinmazAddComponent },
-  { path: 'tasinmaz-update', component: TasinmazUpdateComponent},
-  { path: 'tasinmaz-update/:id', component: TasinmazUpdateComponent },
-  { path: 'map', component: MapComponent}
+  { path: 'tasinmaz-liste', component: TasinmazListeComponent, canActivate:[LoginGuardService]},
+  { path: 'tasinmaz-add', component: TasinmazAddComponent, canActivate:[LoginGuardService]},
+  { path: 'tasinmaz-update', component: TasinmazUpdateComponent, canActivate:[LoginGuardService]},
+  { path: 'tasinmaz-update/:id', component: TasinmazUpdateComponent, canActivate:[LoginGuardService] },
+  { path: 'map', component: MapComponent, canActivate:[LoginGuardService]}
   
 ];
 

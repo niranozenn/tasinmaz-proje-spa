@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginUser);
       this.loginUser = Object.assign({}, this.loginForm.value);
     }
+    
     /*logOut(){
       this.authService.logOut();
     }*/

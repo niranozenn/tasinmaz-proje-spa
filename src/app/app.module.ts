@@ -12,6 +12,7 @@ import { TasinmazAddComponent } from './tasinmaz-add/tasinmaz-add.component';
 import { TasinmazUpdateComponent } from './tasinmaz-update/tasinmaz-update.component';
 import { MapComponent } from './map/map.component';
 import { AuthService } from './services/auth.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { AuthService } from './services/auth.service';
     HttpClientModule
    
   ],
-  providers: [AlertifyService],
+  providers: [AlertifyService, AuthService, LoginGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
