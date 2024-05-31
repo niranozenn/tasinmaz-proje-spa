@@ -54,16 +54,17 @@ export class TasinmazAddComponent implements OnInit {
 
   ngOnInit() {
     this.tasinmazForm = this.formBuilder.group({
-      sehir: ['', Validators],
-      ilce: ['', Validators],
-      mahalleId: ['', Validators],
-      ada: ['', Validators],
-      parsel: ['', Validators],
-      nitelik: ['', Validators],
-      adres: ['', Validators],
-      koordinatX: ['', Validators],
-      koordinatY: ['', Validators]
-  });
+      sehir: ['', Validators.required],
+      ilce: ['', Validators.required],
+      mahalleId: ['', Validators.required],
+      ada: ['', Validators.required],
+      parsel: ['', Validators.required],
+      nitelik: ['', Validators.required],
+      adres: ['', Validators.required],
+      koordinatX: ['', Validators.required],
+      koordinatY: ['', Validators.required]
+    });
+
   this.tasinmazService.getSehirler().subscribe((data) => {
     this.sehirler = data;
 });

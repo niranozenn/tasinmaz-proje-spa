@@ -1,5 +1,4 @@
 
-
 <body>
   <div class="container">
     <div class="wrapper">
@@ -10,15 +9,17 @@
         <div class="form-field d-flex align-items-center">
           <span class="far fa-user"></span>
           <input 
-            type="text" 
+            type="email"
             name="userName"
             [(ngModel)]="loginUser.userName"
             formControlName="userName" 
             id="username" 
             placeholder="Email"
-            required>
-            <div class="invalid-feedback">Kullanıcı adı zorunludur.</div>
+            autofocus
+            required
+            [ngClass]="{'is-invalid': loginForm.get('userName').invalid && loginForm.get('userName').touched}">
         </div>
+        
         <div class="form-field d-flex align-items-center">
           <span class="fa-solid fa-key"></span>
           <input 
@@ -28,7 +29,17 @@
             formControlName="password" 
             id="password" 
             placeholder="Şifre" 
-            required>
+            required
+            [ngClass]="{'is-invalid': loginForm.get('password').invalid && loginForm.get('password').touched}">
+        
+        </div>
+        <div *ngIf="loginForm.get('userName').invalid && loginForm.get('userName').touched" class="text-danger">
+          <div *ngIf="loginForm.get('userName').hasError('required')">*Kullanıcı adı zorunludur.</div>
+          <div *ngIf="loginForm.get('userName').hasError('email')">*Geçerli bir e-posta adresi girin.</div>
+        </div>
+        <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched" class="text-danger">
+          <div *ngIf="loginForm.get('password').hasError('required')">*Şifre zorunludur.</div>
+          <div *ngIf="loginForm.get('password').hasError('minlength')">*Şifre en az 8 karakter olmalıdır.</div>
         </div>
         <button type="submit" class="btn mt-3">Giriş</button>
       </form>

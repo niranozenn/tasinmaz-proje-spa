@@ -13,62 +13,94 @@
 
     <div class="form-group mt-2">
       <label for="sehirSelect1">İl Adı</label>
-      <select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()">
+      <select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()"
+        [ngClass]="{'is-invalid': tasinmazForm.get('sehir').invalid && tasinmazForm.get('sehir').touched}">
         <option *ngFor="let sehir of sehirler" [value]="sehir.id">{{ sehir.ad }}</option>
       </select>
+      <div *ngIf="tasinmazForm.get('sehir').invalid && tasinmazForm.get('sehir').touched" class="text-danger">
+            <div *ngIf="tasinmazForm.get('sehir').hasError('required')">*İl adı zorunludur.</div>
+      </div>
     </div>
     
     <div class="form-group mt-2">
       <label for="ilceSelect1">İlçe Adı</label>
-      <select class="form-control" id="ilceSelect1" formControlName="ilce" (change)="onIlceChange()">
+      <select class="form-control" id="ilceSelect1" formControlName="ilce" (change)="onIlceChange()"
+      [ngClass]="{'is-invalid': tasinmazForm.get('ilce').invalid && tasinmazForm.get('ilce').touched}">
         <option *ngFor="let ilce of ilceler" [value]="ilce.id">{{ ilce.ad }}</option>
       </select>
+      <div *ngIf="tasinmazForm.get('ilce').invalid && tasinmazForm.get('ilce').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('ilce').hasError('required')">*İlçe adı zorunludur.</div>
+      </div>
     </div>
     
     <div class="form-group mt-2">
       <label for="mahalleSelect1">Mahalle Adı</label>
-      <select class="form-control" id="mahalleSelect1" formControlName="mahalleId">
+      <select class="form-control" id="mahalleSelect1" formControlName="mahalleId"
+        [ngClass]="{'is-invalid': tasinmazForm.get('mahalleId').invalid && tasinmazForm.get('mahalleId').touched}">
         <option *ngFor="let mahalle of mahalleler" [value]="mahalle.id">{{ mahalle.ad }}</option>
       </select>
+      <div *ngIf="tasinmazForm.get('mahalleId').invalid && tasinmazForm.get('mahalleId').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('mahalleId').hasError('required')">*Mahalle adı zorunludur.</div>
+      </div>
     </div>
 
     <div class="form-group mt-2">
       <label for="adaInput">Ada</label>
-      <input type="text" class="form-control" id="adaInput" placeholder="Ada" formControlName="ada" autocomplete="off">
+      <input type="text" class="form-control" id="adaInput" placeholder="Ada" formControlName="ada" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('ada').invalid && tasinmazForm.get('ada').touched}">
+      <div *ngIf="tasinmazForm.get('ada').invalid && tasinmazForm.get('ada').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('ada').hasError('required')">*Ada zorunludur.</div>
+      </div>
     </div>
 
     <div class="form-group mt-2">
       <label for="parselInput">Parsel</label>
-      <input type="text" class="form-control" id="parselInput" placeholder="Parsel" formControlName="parsel" autocomplete="off">
+      <input type="text" class="form-control" id="parselInput" placeholder="Parsel" formControlName="parsel" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('parsel').invalid && tasinmazForm.get('parsel').touched}">
+      <div *ngIf="tasinmazForm.get('parsel').invalid && tasinmazForm.get('parsel').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('parsel').hasError('required')">*Parsel zorunludur.</div>
+      </div>
     </div>
 
     <div class="form-group mt-2">
       <label for="adrestInput">Adres</label>
-      <input type="text" class="form-control" id="adrestInput" placeholder="Adres" formControlName="adres" autocomplete="off">
+      <input type="text" class="form-control" id="adrestInput" placeholder="Adres" formControlName="adres" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('adres').invalid && tasinmazForm.get('adres').touched}">
+      <div *ngIf="tasinmazForm.get('adres').invalid && tasinmazForm.get('adres').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('adres').hasError('required')">*Adres zorunludur.</div>
+      </div>
     </div>
 
     <div class="form-group mt-2">
       <label for="nitelikInput">Nitelik</label>
-      <input type="text" class="form-control" id="nitelikInput" placeholder="Nitelik" formControlName="nitelik" autocomplete="off">
+      <input type="text" class="form-control" id="nitelikInput" placeholder="Nitelik" formControlName="nitelik" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('nitelik').invalid && tasinmazForm.get('nitelik').touched}">
+      <div *ngIf="tasinmazForm.get('nitelik').invalid && tasinmazForm.get('nitelik').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('nitelik').hasError('required')">*Nitelik zorunludur.</div>
+      </div>
     </div>
     
     <div class="form-group mt-2">
       <label for="coordinatxInput">Koordinat X</label>
-      <input type="text" class="form-control" id="coordinatxInput" placeholder="Koordinat X" formControlName="koordinatX" autocomplete="off">
+      <input type="text" class="form-control" id="coordinatxInput" placeholder="Koordinat X" formControlName="koordinatX" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('koordinatX').invalid && tasinmazForm.get('koordinatX').touched}" readonly>
+      <div *ngIf="tasinmazForm.get('koordinatX').invalid && tasinmazForm.get('koordinatX').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('koordinatX').hasError('required')">*Koordinat X zorunludur.</div>
+      </div>
     </div>
 
     <div class="form-group mt-2">
       <label for="coordinatyInput">Koordinat Y</label>
-      <input type="text" class="form-control" id="coordinatyInput" placeholder="Koordinat Y" formControlName="koordinatY" autocomplete="off">
+      <input type="text" class="form-control" id="coordinatyInput" placeholder="Koordinat Y" formControlName="koordinatY" autocomplete="off"
+        [ngClass]="{'is-invalid': tasinmazForm.get('koordinatY').invalid && tasinmazForm.get('koordinatY').touched}" readonly>
+      <div *ngIf="tasinmazForm.get('koordinatY').invalid && tasinmazForm.get('koordinatY').touched" class="text-danger">
+        <div *ngIf="tasinmazForm.get('koordinatY').hasError('required')">*Koordinat Y zorunludur.</div>
+      </div>
     </div>
 
 
     <div class="button mt-2 d-grid gap-2 text-center">
       <button class="btn btn-lg btn-outline-success  btn-success" type="submit" >Ekle</button>
     </div>
-
-    
-    
   </fieldset>
 </form>
-
