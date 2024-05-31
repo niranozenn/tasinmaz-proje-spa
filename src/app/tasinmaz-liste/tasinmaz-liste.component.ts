@@ -27,6 +27,7 @@ export class TasinmazListeComponent implements OnInit {
   tasinmazlar: Tasinmaz[] = []; //çektiğimiz datayı Tasinmaz arrayinde toplayacağız. (models class oluşturuldu)
   showDangerAlert: boolean = false;
   showWarningAlert: boolean = false;
+  showUpdateAlert: boolean = false;
 
   ngOnInit() {
     this.userLogin();
@@ -62,15 +63,19 @@ export class TasinmazListeComponent implements OnInit {
     if (this.selectedTasinmazId) {
       this.router.navigate(["/tasinmaz-update", this.selectedTasinmazId]);
     } else if (this.selectedTasinmazId == null) {
-      this.alertifyService.warning("Lütfen taşınmaz seçiniz.", () => {});
-    }
+      this.showUpdateAlert = true; 
+      setTimeout(()=>{
+        this.showUpdateAlert=false;
+        this.router.navigate(["/tasinmaz-liste"]);
+      },alertDisplayTime);    }
   }
   navigateToDeletePage() {
+    const alertDisplayTime=3000;
+
     if (this.selectedTasinmazId) {
       this.alertifyService.confirm(
         "Silmek istediğinize emin misiniz?",
         () => {
-          // Evet'e tıklandığında
           this.deleteTasinmaz(this.selectedTasinmazId);
         },
         () => {
@@ -79,7 +84,11 @@ export class TasinmazListeComponent implements OnInit {
         }
       );
     } else {
-      alert("Lütfen silinecek taşınmazı seçin.");
+      this.showWarningAlert = true; 
+      setTimeout(()=>{
+        this.showWarningAlert=false;
+        this.router.navigate(["/tasinmaz-liste"]);
+      },alertDisplayTime);
     }
   }
 
@@ -100,5 +109,6 @@ export class TasinmazListeComponent implements OnInit {
         }
       );
     }
+   
   }
 }

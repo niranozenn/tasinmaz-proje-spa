@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TasinmazService } from "../services/tasinmaz.service";
 import { Tasinmaz } from "../models/tasinmaz";
 import "ol/ol.css";
@@ -37,15 +37,15 @@ export class TasinmazUpdateComponent implements OnInit {
     private alertifyService: AlertifyService
   ) {
     this.tasinmazForm = this.fb.group({
-      sehir: [""],
-      ilce: [""],
-      mahalleId: [""],
-      ada: [""],
-      parsel: [""],
-      nitelik: [""],
-      adres: [""],
-      koordinatX: [""],
-      koordinatY: [""],
+      sehir: ['', Validators.required],
+      ilce: ['', Validators.required],
+      mahalleId: ['', Validators.required],
+      ada: ['', Validators.required],
+      parsel: ['', Validators.required],
+      nitelik: ['', Validators.required],
+      adres: ['', Validators.required],
+      koordinatX: ['', Validators.required],
+      koordinatY: ['', Validators.required]
     });
   }
 
