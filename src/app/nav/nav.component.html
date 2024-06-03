@@ -1,51 +1,25 @@
-<!--
-<nav  class="navbar  " data-bs-theme="light">
-  <div class="container-fluid">
-    <form class="d-flex">
-      <ul class="nav nav-tabs justify-content-center" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" data-bs-toggle="tab" href="#" target="_self" aria-selected="false" role="tab" tabindex="-1">Home</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" data-bs-toggle="tab" href="../login/" aria-selected="true" role="tab" tabindex="-1">Log İşlemleri</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link" data-bs-toggle="tab" href="../login/" aria-selected="true" role="tab">Kullanıcı İşlemleri</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link " href="#" aria-selected="false" tabindex="-1" role="tab">Mevcut Taşınmazlar Listesi</a>
-        </li>
-      </ul>
-      <input class="form-control me-sm-2" type="search" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
--->
+
 <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
   <div class="container-fluid">
-    <span class="navbar-brand" >Taşınmaz Yönetimi</span>
+    <span class="navbar-brand">Taşınmaz Yönetimi</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
-        
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAdmin">
           <a class="nav-link" href="#">Log işlemleri</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Kullanıcı işlemleri</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" href="../tasinmaz-liste/">Mevcut Taşınmazlar Listesi</a>
         </li>
-        <li class="nav-item">
-          <button class="nav-link" (click)="logOut()">Çıkış</button>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" href="../kullanici/" *ngIf="flag==false">Kullanıcı işlemleri</a>
         </li>
-       
       </ul>
-      <form class="d-flex">
+      
+      <form class="d-flex" *ngIf="authService.isLoggedIn()">
+        <button class="btn btn-link nav-link" (click)="logOut()">Çıkış</button>
         <input class="form-control me-sm-2" type="search" placeholder="Taşınmaz Ara">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Ara</button>
       </form>

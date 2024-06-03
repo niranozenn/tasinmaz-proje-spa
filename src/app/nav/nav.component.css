@@ -17,7 +17,7 @@ form{
     color: #000;
     background-color: transparent;
     border-radius: 10px;
-    transition: color 0.3s, background-color 0.3s; /* Renk değişikliklerini 0.3 saniyede animasyonla geçir */
+    transition: color 0.3s, background-color 0.3s; 
 }
 
 .nav-link:hover {
@@ -25,4 +25,7 @@ form{
     background-color: #3b4acf;
 }
 
-  
+.btn-link{
+    margin-right: 10px;
+    padding: 10px
+}

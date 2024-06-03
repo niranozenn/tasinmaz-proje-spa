@@ -106,6 +106,10 @@ export class TasinmazAddComponent implements OnInit {
   
   tasinmazAdd(): void 
   {
+    Object.keys(this.tasinmazForm.controls).forEach(field => {
+      const control = this.tasinmazForm.get(field);
+      control.markAsTouched({ onlySelf: true });
+    });
     const userId = this.authService.getUserId();
     const alertDisplayTime=3000;
     if (this.tasinmazForm.valid) 

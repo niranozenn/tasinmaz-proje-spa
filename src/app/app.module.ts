@@ -13,6 +13,7 @@ import { TasinmazUpdateComponent } from './tasinmaz-update/tasinmaz-update.compo
 import { MapComponent } from './map/map.component';
 import { AuthService } from './services/auth.service';
 import { LoginGuardService } from './services/login-guard.service';
+import { KullaniciComponent } from './kullanici/kullanici.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoginGuardService } from './services/login-guard.service';
     NavComponent,
     TasinmazAddComponent,
     TasinmazUpdateComponent,
-    MapComponent ],
+    MapComponent,
+    KullaniciComponent],
   imports: [
     BrowserModule,
     FormsModule,
