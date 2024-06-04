@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Ilce } from '../models/ilce';
 import { Mahalle } from '../models/mahalle';
 import { Tasinmaz } from '../models/tasinmaz';
+import { LoginUser } from '../models/loginUser';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,7 @@ import { Tasinmaz } from '../models/tasinmaz';
 export class TasinmazService {
   path = "https://localhost:44364/api/"
   constructor(private http: HttpClient) { }
+ 
 
   
 
@@ -31,6 +33,10 @@ export class TasinmazService {
   }
   getTasinmaz(tasinmazId: number): Observable<Tasinmaz[]> {
     return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getTasinmazById/${tasinmazId}`);
+  }
+
+  getUser(): Observable<LoginUser[]> {
+    return this.http.get<LoginUser[]>(`${this.path}Auth/users`);
   }
   getTasinmazByUserId(userId: number): Observable<Tasinmaz[]> {
     return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getByUserId?userId=${userId}`);

@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'tasinmaz-update', component: TasinmazUpdateComponent, canActivate:[LoginGuardService]},
   { path: 'tasinmaz-update/:id', component: TasinmazUpdateComponent, canActivate:[LoginGuardService] },
   { path: 'map', component: MapComponent, canActivate:[LoginGuardService]},
-  { path:'kullanici', component:KullaniciComponent, canActivate:[AdminGuardService]},
+  { path:'kullanici', component:KullaniciComponent},
 
   
 ];
