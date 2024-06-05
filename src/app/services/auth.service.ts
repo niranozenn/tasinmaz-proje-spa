@@ -7,26 +7,21 @@ import { AlertifyService } from "./alertify.service";
 import { LoginUser } from "../models/loginUser";
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
+  private baseUrl = 'https://localhost:44364/api/Auth/register';
+  private path = "https://localhost:44364/api/Auth/";
+  private jwtHelper: JwtHelperService = new JwtHelperService();
+  private TOKEN_KEY = "token";
+  private ROLE_KEY = "role";
+
   constructor(
     private httpClient: HttpClient,
     private router: Router,
     private alertify: AlertifyService
   ) {}
-  private baseUrl = 'https://localhost:44364/api/Auth/register';
-  path = "https://localhost:44364/api/Auth/";
-  userToken: any;
-  decodeToken: any;
-  userId: any;
-  jwtHelper: JwtHelperService = new JwtHelperService();
-  TOKEN_KEY = "token";
-  ROLE_KEY = "role";
-  loggedIn = false;
-  IsuserLogged=false;
 
   login(loginUser: LoginUser) {
     let headers = new HttpHeaders();
@@ -35,16 +30,11 @@ export class AuthService {
       .post(this.path + "login", loginUser, { headers: headers, responseType: 'text' })
       .subscribe((data) => {
         this.saveToken(data);
-        this.userToken = data;
-        this.decodeToken = this.jwtHelper.decodeToken(data);
-        const userId = this.decodeToken.nameid;
-        localStorage.setItem('userId', userId);
-        this.userId = this.decodeToken.nameid;
-        const userRole = this.decodeToken.role;
-        localStorage.setItem(this.ROLE_KEY, userRole);
-        this.alertify.success(`Hoşgeldiniz, ${this.decodeToken.unique_name}!`);
-        console.log("Sisteme Giriş yapıldı!");
-        this.loggedIn = true;
+        const decodedToken = this.jwtHelper.decodeToken(data);
+        localStorage.setItem('userId', decodedToken.nameid);
+        localStorage.setItem(this.TOKEN_KEY, data);
+        localStorage.setItem(this.ROLE_KEY, decodedToken.role);
+        this.alertify.success(`Hoşgeldiniz, ${decodedToken.unique_name}!`);
         this.router.navigateByUrl("/tasinmaz-liste");
       }, error => {
         console.log("Giriş başarısız.");
@@ -65,10 +55,6 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.getToken();
-   /* return localStorage.getItem(this.TOKEN_KEY)!==null
-    ? (this.IsuserLogged=true)
-    : false ;*/
-  
     return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 
@@ -77,7 +63,6 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem(this.ROLE_KEY);
     this.router.navigateByUrl("/login");
-    this.loggedIn = false;
   }
 
   getRole(): string | null {
@@ -91,8 +76,4 @@ export class AuthService {
   registerUser(user: LoginUser): Observable<any> {
     return this.httpClient.post<any>(this.baseUrl, user);
   }
-
-  
-
-  
 }

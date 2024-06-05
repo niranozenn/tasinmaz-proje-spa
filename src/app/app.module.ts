@@ -14,6 +14,8 @@ import { MapComponent } from './map/map.component';
 import { AuthService } from './services/auth.service';
 import { LoginGuardService } from './services/login-guard.service';
 import { KullaniciComponent } from './kullanici/kullanici.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { KullaniciComponent } from './kullanici/kullanici.component';
     HttpClientModule
    
   ],
-  providers: [AlertifyService, AuthService, LoginGuardService],
+  providers: 
+   [AlertifyService, AuthService, LoginGuardService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
