@@ -79,7 +79,6 @@ export class TasinmazAddComponent implements OnInit {
         koordinatX: coordinate[0].toString(), // sayıyı dizeye dönüştür
         koordinatY: coordinate[1].toString() // sayıyı dizeye dönüştür
       });
-      console.log(coordinate[0])
     });
   }
 

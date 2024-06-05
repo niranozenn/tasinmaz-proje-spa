@@ -1,3 +1,5 @@
+import { Mahalle } from "./mahalle";
+
 export class Tasinmaz{
     tasinmazId:number;
     sehir:number;
@@ -12,4 +14,5 @@ export class Tasinmaz{
     userId:number;
     koordinatX:string;
     koordinatY:string;
+    mahalle2: Mahalle;
 }

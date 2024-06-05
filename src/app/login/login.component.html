@@ -1,34 +1,32 @@
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><body>
   <div class="container">
     <div class="wrapper">
       <div class="text-center mt-4 name">
         Taşınmaz Yönetimi
       </div>
       <form [formGroup]="loginForm" (ngSubmit)="login()" class="p-3 mt-3">
+        <span class="fa fa-user">  E-Mail :</span>
+
         <div class="form-field d-flex align-items-center">
-          <span class="far fa-user"></span>
           <input 
             type="email"
             name="userName"
             [(ngModel)]="loginUser.userName"
             formControlName="userName" 
             id="username" 
-            placeholder="Email"
             autofocus
             required
             [ngClass]="{'is-invalid': loginForm.get('userName').invalid && loginForm.get('userName').touched}">
         </div>
-        
+        <span class="fa fa-key">  Şifre :</span>
+
         <div class="form-field d-flex align-items-center">
-          <span class="fa-solid fa-key"></span>
           <input 
             type="password" 
             name="password"
             [(ngModel)]="loginUser.password"
             formControlName="password" 
             id="password" 
-            placeholder="Şifre" 
             required
             [ngClass]="{'is-invalid': loginForm.get('password').invalid && loginForm.get('password').touched}">
         
@@ -43,9 +41,7 @@
         </div>
         <button type="submit" class="btn mt-3">Giriş</button>
       </form>
-      <div class="text-center fs-6">
-        <a href="#">Şifrenizi mi unuttunuz?</a> ya da <a href="#">Kayıt ol</a>
-      </div>
+      
     </div>
   </div>
 </body>

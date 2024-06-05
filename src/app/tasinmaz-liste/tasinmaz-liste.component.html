@@ -1,5 +1,7 @@
+
+
 <div *ngIf="showDangerAlert" class="alert alert-dismissible alert-danger">
-  <strong>Taşınmaz Silindi!</strong> 
+  <strong>Taşınmaz Silindi!</strong>
 </div>
 
 <div *ngIf="showWarningAlert" class="alert alert-warning">
@@ -9,10 +11,15 @@
   <h6 class="alert-heading">Lütfen güncellemek istediğiniz taşınmazı seçin</h6>
 </div>
 
-
-
 <app-nav></app-nav>
 <app-map></app-map>
+
+<div class="d-flex justify-content-end mb-3">
+  <form class="d-flex search-form" (ngSubmit)="onSearch()">
+    <input class="form-control me-sm-2" type="search" placeholder="Taşınmaz Ara" [(ngModel)]="searchTerm" name="searchTerm">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Ara</button>
+  </form>
+</div>
 
 <form>
   <div class="table-wrapper">
@@ -32,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tasinmaz of paginatedTasinmazlar">
+        <tr *ngFor="let tasinmaz of filteredTasinmazlar">
           <th>
             <input class="form-check-input" type="checkbox" [value]="tasinmaz.id" (change)="onCheckboxChange(tasinmaz.id, $event)" id="flexCheckDefault">
           </th>
@@ -45,7 +52,6 @@
           <td>{{tasinmaz.adres}}</td>
           <td>{{tasinmaz.koordinatX}}</td>
           <td>{{tasinmaz.koordinatY}}</td>
-          
         </tr>
       </tbody>
     </table>
@@ -54,10 +60,10 @@
   <div class="pagination-wrapper">
     <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 1" (click)="previousPage()">
-        <a class="page-link" >&laquo;</a>
+        <span class="page-link">&laquo;</span>
       </li>
       <li *ngFor="let page of pages" class="page-item" [class.active]="currentPage === page">
-        <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+        <span class="page-link" (click)="goToPage(page)">{{ page }}</span>
       </li>
       <li class="page-item" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
         <a class="page-link" >&raquo;</a>
@@ -66,8 +72,9 @@
   </div>
 
   <footer>
-    <button type="button" class="btn btn-outline-success" (click)="navigateToAddPage()">Ekle</button>
-    <button type="button" class="btn btn-outline-warning" (click)="navigateToUpdatePage()">Güncelle</button>
-    <button type="button" class="btn btn-outline-danger" (click)="navigateToDeletePage()">Sil</button>
+    <button type="button" class="btn btn-success" (click)="navigateToAddPage()">Ekle</button>
+    <button type="button" class="btn btn-warning" (click)="navigateToUpdatePage()">Güncelle</button>
+    <button type="button" class="btn btn-danger" (click)="navigateToDeletePage()">Sil</button>
   </footer>
 </form>
+

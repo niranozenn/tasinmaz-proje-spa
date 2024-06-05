@@ -1,5 +1,4 @@
-
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { Tasinmaz } from "../models/tasinmaz";
@@ -7,6 +6,9 @@ import { TasinmazService } from "../services/tasinmaz.service";
 import { AlertifyService } from "../services/alertify.service";
 import { AuthService } from "../services/auth.service";
 import { LoginGuardService } from "../services/login-guard.service";
+import { MapComponent } from "../map/map.component";
+import { Coordinate } from 'ol/coordinate';
+
 
 @Component({
   selector: "app-tasinmaz-liste",
@@ -15,6 +17,10 @@ import { LoginGuardService } from "../services/login-guard.service";
   providers: [TasinmazService],
 })
 export class TasinmazListeComponent implements OnInit {
+  @ViewChild(MapComponent) mapComponent: MapComponent;
+  @Output() coordinateClicked = new EventEmitter<Coordinate>();
+
+
   constructor(
     private http: HttpClient,
     private alertifyService: AlertifyService,
@@ -31,6 +37,8 @@ export class TasinmazListeComponent implements OnInit {
   itemsPerPage: number = 5;
   totalPages: number = 0;
   pages: number[] = [];
+  filteredTasinmazlar: Tasinmaz[] = [];
+  searchTerm: string = '';
 
   showDangerAlert: boolean = false;
   showWarningAlert: boolean = false;
@@ -39,13 +47,17 @@ export class TasinmazListeComponent implements OnInit {
   ngOnInit() {
     this.userLogin();
   }
+  ngAfterViewInit() {
+    
+  }
 
   userLogin() {
     const userId = this.authService.getUserId();
     if (userId) {
       this.tasinmazService.getTasinmazByUserId(userId).subscribe((data) => {
         this.tasinmazlar = data;
-        this.totalPages = Math.ceil(this.tasinmazlar.length / this.itemsPerPage);
+        this.filteredTasinmazlar = this.tasinmazlar;
+        this.totalPages = Math.ceil(this.filteredTasinmazlar.length / this.itemsPerPage);
         this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
         this.paginateTasinmazlar();
       });
@@ -57,7 +69,7 @@ export class TasinmazListeComponent implements OnInit {
   paginateTasinmazlar() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedTasinmazlar = this.tasinmazlar.slice(startIndex, endIndex);
+    this.paginatedTasinmazlar = this.filteredTasinmazlar.slice(startIndex, endIndex);
   }
 
   goToPage(page: number) {
@@ -79,10 +91,23 @@ export class TasinmazListeComponent implements OnInit {
     }
   }
 
-  navigateToAddPage() {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(["/tasinmaz-add"]);
+  onSearch() {
+    if (this.searchTerm) {
+      this.filteredTasinmazlar = this.tasinmazlar.filter(tasinmaz =>
+        tasinmaz.mahalle.ilce.sehir.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tasinmaz.mahalle.ilce.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tasinmaz.mahalle.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tasinmaz.ada.toString().includes(this.searchTerm) ||
+        tasinmaz.parsel.toString().includes(this.searchTerm) ||
+        tasinmaz.nitelik.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        tasinmaz.adres.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredTasinmazlar = this.tasinmazlar;
     }
+    this.totalPages = Math.ceil(this.filteredTasinmazlar.length / this.itemsPerPage);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.goToPage(1);
   }
 
   onCheckboxChange(tasinmazId: number, event: any) {
@@ -92,4 +117,66 @@ export class TasinmazListeComponent implements OnInit {
       this.selectedTasinmazId = null;
     }
   }
+
+  navigateToAddPage() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(["/tasinmaz-add"]);
+    }
+  }
+
+  navigateToUpdatePage() {
+    const alertDisplayTime = 3000;
+    if (this.selectedTasinmazId) {
+      this.router.navigate(["/tasinmaz-update", this.selectedTasinmazId]);
+    } else {
+      this.showUpdateAlert = true;
+      setTimeout(() => {
+        this.showUpdateAlert = false;
+      }, alertDisplayTime);
+    }
+  }
+  navigateToDeletePage() {
+    const alertDisplayTime = 3000;
+
+    if (this.selectedTasinmazId) {
+      this.alertifyService.confirm(
+        "Silmek istediğinize emin misiniz?",
+        () => {
+          this.deleteTasinmaz(this.selectedTasinmazId);
+        },
+        () => {
+          // Hayır'a tıklandığında
+          // Hiçbir işlem yapma, sadece onay kutusunu kapat
+        }
+      );
+    } else {
+      this.showWarningAlert = true;
+      setTimeout(() => {
+        this.showWarningAlert = false;
+      }, alertDisplayTime);
+    }
+  }
+
+  deleteTasinmaz(selectedTasinmazId: number) {
+    const alertDisplayTime = 3000;
+    if (selectedTasinmazId) {
+      this.tasinmazService.deleteTasinmaz(selectedTasinmazId).subscribe(
+        () => {
+          this.alertifyService.error("Taşınmaz başarıyla silindi.");
+          this.tasinmazService.getTasinmazlar().subscribe((data) => {
+            this.tasinmazlar = data;
+            this.totalPages = Math.ceil(this.tasinmazlar.length / this.itemsPerPage);
+            this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+            this.paginateTasinmazlar();
+          });
+          this.selectedTasinmazId = null;
+        },
+        (error) => {
+          this.alertifyService.error("Taşınmaz silinirken hata oluştu.");
+        }
+      );
+    }
+  }
 }
+
+
