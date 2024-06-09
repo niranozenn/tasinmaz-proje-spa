@@ -29,17 +29,25 @@ export class AuthService {
     this.httpClient
       .post(this.path + "login", loginUser, { headers: headers, responseType: 'text' })
       .subscribe((data) => {
-        this.saveToken(data);
-        const decodedToken = this.jwtHelper.decodeToken(data);
-        localStorage.setItem('userId', decodedToken.nameid);
-        localStorage.setItem(this.TOKEN_KEY, data);
-        localStorage.setItem(this.ROLE_KEY, decodedToken.role);
-        this.alertify.success(`Hoşgeldiniz, ${decodedToken.unique_name}!`);
-        this.router.navigateByUrl("/tasinmaz-liste");
+       
+        // Dönen verinin JWT olduğunu kontrol et
+        if (data) {
+          this.saveToken(data);
+         
+          const decodedToken = this.jwtHelper.decodeToken(data);
+          localStorage.setItem('userId', decodedToken.nameid);
+          localStorage.setItem(this.TOKEN_KEY, data);
+          //localStorage.setItem(this.ROLE_KEY, decodedToken.role);
+          this.alertify.success(`Hoşgeldiniz, ${decodedToken.unique_name}!`);
+          this.router.navigateByUrl("/tasinmaz-liste");
+        } else {
+          console.log("Giriş başarısız. Sunucudan null yanıt alındı.");
+        }
       }, error => {
         console.log("Giriş başarısız.");
       });
   }
+  
 
   saveToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);

@@ -15,6 +15,9 @@ import { AuthService } from './services/auth.service';
 import { LoginGuardService } from './services/login-guard.service';
 import { KullaniciComponent } from './kullanici/kullanici.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { LogComponent } from './log/log.component';
+import { LogService } from './services/log.service';
+
 
 
 
@@ -27,7 +30,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     TasinmazAddComponent,
     TasinmazUpdateComponent,
     MapComponent,
-    KullaniciComponent],
+    KullaniciComponent,
+    LogComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -37,7 +41,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
    
   ],
   providers: 
-   [AlertifyService, AuthService, LoginGuardService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },],
+   [AlertifyService, AuthService, LoginGuardService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

@@ -94,9 +94,7 @@ export class TasinmazListeComponent implements OnInit {
   onSearch() {
     if (this.searchTerm) {
       this.filteredTasinmazlar = this.tasinmazlar.filter(tasinmaz =>
-        tasinmaz.mahalle.ilce.sehir.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        tasinmaz.mahalle.ilce.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        tasinmaz.mahalle.ad.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        
         tasinmaz.ada.toString().includes(this.searchTerm) ||
         tasinmaz.parsel.toString().includes(this.searchTerm) ||
         tasinmaz.nitelik.toLowerCase().includes(this.searchTerm.toLowerCase()) ||

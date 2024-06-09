@@ -1,0 +1,28 @@
+.log-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px 0;
+  }
+  
+  .card-green {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  .card-red {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+  
+  .log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .log-body {
+    padding: 10px 0;
+  }
+  

@@ -2,12 +2,7 @@
     import { Component, OnInit } from '@angular/core';
     import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
     import { AuthService } from '../services/auth.service';
-    import { Router } from '@angular/router';
-    import { Routes, RouterModule } from '@angular/router';
-    import { NgModule } from '@angular/core';
-    import { HttpClient } from '@angular/common/http';
-    import { LoginUser } from '../models/loginUser';
-    import { ReactiveFormsModule } from '@angular/forms';
+
     
     @Component({
       selector: 'app-login',

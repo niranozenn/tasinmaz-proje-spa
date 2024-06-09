@@ -1,0 +1,13 @@
+<app-nav></app-nav>
+
+<div *ngFor="let log of logs" [ngClass]="{ 'card-green': log.durum, 'card-red': !log.durum }" class="log-card">
+  <div class="log-header">
+    <h3>{{ log.islemTipi }}</h3>
+    <p>{{ log.tarih | date:'short' }}</p>
+  </div>
+  <div class="log-body">
+    <p><strong>Açıklama:</strong> {{ log.aciklama }}</p>
+    <p><strong>IP Adresi:</strong> {{ log.logIp }}</p>
+    <p><strong>Kullanıcı ID:</strong> {{ log.userId }}</p>
+  </div>
+</div>
