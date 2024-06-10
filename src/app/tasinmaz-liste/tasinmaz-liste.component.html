@@ -21,7 +21,7 @@
   </form>
 </div>
 
-<form>
+<form *ngIf="tasinmazFormIsOpen">
   <div class="table-wrapper">
     <table class="table table-striped">
       <thead>
@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tasinmaz of filteredTasinmazlar">
+        <tr *ngFor="let tasinmaz of paginatedTasinmazlar">
           <th>
             <input class="form-check-input" type="checkbox" [value]="tasinmaz.id" (change)="onCheckboxChange(tasinmaz.id, $event)" id="flexCheckDefault">
           </th>
@@ -59,14 +59,14 @@
 
   <div class="pagination-wrapper">
     <ul class="pagination">
-      <li class="page-item" [class.disabled]="currentPage === 1" (click)="previousPage()">
-        <span class="page-link">&laquo;</span>
+      <li class="page-item"  (click)="previousPage()">
+        <i class="page-link">&laquo;</i>
       </li>
       <li *ngFor="let page of pages" class="page-item" [class.active]="currentPage === page">
         <span class="page-link" (click)="goToPage(page)">{{ page }}</span>
       </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
-        <a class="page-link" >&raquo;</a>
+      <li class="page-item"  (click)="nextPage()">
+        <i class="page-link" >&raquo;</i>
       </li>
     </ul>
   </div>
@@ -75,6 +75,8 @@
     <button type="button" class="btn btn-success" (click)="navigateToAddPage()">Ekle</button>
     <button type="button" class="btn btn-warning" (click)="navigateToUpdatePage()">Güncelle</button>
     <button type="button" class="btn btn-danger" (click)="navigateToDeletePage()">Sil</button>
+    <button type="button" class="btn btn-primary" (click)="exportToExcel()">Excel</button>
+
   </footer>
 </form>
 

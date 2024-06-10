@@ -82,6 +82,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 500; /* Gerekirse sayfadaki diğer elemanların üstüne çıkması için */
+    z-index: 500; 
     width: auto;
   }

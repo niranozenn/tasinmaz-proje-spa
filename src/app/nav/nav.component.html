@@ -1,5 +1,9 @@
+<head>
+  <script src="path/to/bootstrap.bundle.min.js"></script>
 
-<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <span class="navbar-brand">Taşınmaz Yönetimi</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,22 +11,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item" *ngIf="authService.isLoggedIn()" >
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" href="../log/">Log işlemleri</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link" href="../tasinmaz-liste/">Mevcut Taşınmazlar Listesi</a>
         </li>
-        <li class="nav-item" >
-          <a class="nav-link" href="../kullanici/" >Kullanıcı işlemleri</a>
+        <li class="nav-item">
+          <a class="nav-link" href="../kullanici/">Kullanıcı işlemleri</a>
         </li>
       </ul>
-      
       <form class="d-flex" *ngIf="authService.isLoggedIn()">
         <button class="btn btn-link nav-link" (click)="logOut()">Çıkış</button>
-       
       </form>
     </div>
   </div>
-</nav>
-
+</nav> 

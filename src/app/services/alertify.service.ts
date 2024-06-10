@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 declare let alertify: any;
 
-@Injectable({ //global olarak default ekleyen servis
+@Injectable({ 
   providedIn: 'root'
 })
 export class AlertifyService {
@@ -32,7 +32,7 @@ export class AlertifyService {
   }
 
   warning(message: string, onConfirm: () => void) :void{
-  () => { // Evet'e tıklandığında
+  () => { 
     onConfirm();
   };
 }
@@ -41,10 +41,10 @@ export class AlertifyService {
 
   confirm(message: string, onConfirm: () => void, onCancel: () => void): void {
     alertify.confirm(message,
-      () => { // Evet'e tıklandığında
+      () => { 
         onConfirm();
       },
-      () => { // Hayır'a tıklandığında
+      () => { 
         onCancel();
       });
   }

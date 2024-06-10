@@ -3,10 +3,7 @@
   <h4 class="alert-heading">Taşınmaz üzerinde değişiklik yapılmıştır.</h4>
 </div>
 
-<div>
-  <app-map>
-  </app-map>
-</div>
+
 
    
 <form [formGroup]="tasinmazForm" class="form-container">
@@ -15,23 +12,35 @@
 
     <div class="form-group mt-2">
       <label for="sehirSelect1">İl Adı</label>
-      <select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()">
+      <ngx-select class="form-control-file col-lg-3" formControlName="sehir"
+                  noResultsFound="Kayıt Bulunamadı" placeholder="Seçiniz" [items]="sehirler" optionValueField="id"
+                  optionTextField="ad" style="margin-left: -1.5%;" (selectionChanges)="onSehirChange($event)">
+                </ngx-select>
+      <!--<select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()">
         <option *ngFor="let sehir of sehirler" [value]="sehir.id">{{ sehir.ad }}</option>
-      </select>
+      </select>-->
     </div>
 
     <div class="form-group mt-2">
       <label for="ilceSelect1">İlçe Adı</label>
-      <select class="form-control" id="ilceSelect1" formControlName="ilce" (change)="onIlceChange()">
+      <ngx-select class="form-control-file col-lg-3" formControlName="ilce"
+      noResultsFound="Kayıt Bulunamadı" placeholder="Seçiniz" [items]="ilceler" optionValueField="id"
+      optionTextField="ad" style="margin-left: -1.5%;" (selectionChanges)="onIlceChange($event)">
+    </ngx-select>
+      <!-- <select class="form-control" id="ilceSelect1" formControlName="ilce" (change)="onIlceChange()">
         <option *ngFor="let ilce of ilceler" [value]="ilce.id">{{ ilce.ad }}</option>
-      </select>
+      </select> -->
     </div>
 
     <div class="form-group mt-2">
       <label for="mahalleSelect1">Mahalle Adı</label>
-      <select class="form-control" id="mahalleSelect1" formControlName="mahalleId">
+      <ngx-select class="form-control-file col-lg-3" formControlName="mahalleId"
+      noResultsFound="Kayıt Bulunamadı" placeholder="Seçiniz" [items]="mahalleler" optionValueField="id"
+      optionTextField="ad" style="margin-left: -1.5%;">
+    </ngx-select>
+      <!-- <select class="form-control" id="mahalleSelect1" formControlName="mahalleId">
         <option *ngFor="let mahalle of mahalleler" [value]="mahalle.id">{{ mahalle.ad }}</option>
-      </select>
+      </select> -->
     </div>
 
     <div class="form-group mt-2">
@@ -56,12 +65,12 @@
 
     <div class="form-group mt-2">
       <label for="coordinatxInput">Koordinat X</label>
-      <input type="text" class="form-control" id="coordinatxInput" placeholder="Koordinat X" formControlName="koordinatX" autocomplete="off">
+      <input type="text" class="form-control" id="coordinatxInput" placeholder="Koordinat X" formControlName="koordinatX" autocomplete="off" readonly>
     </div>
 
     <div class="form-group mt-2">
       <label for="coordinatyInput">Koordinat Y</label>
-      <input type="text" class="form-control" id="coordinatyInput" placeholder="Koordinat Y" formControlName="koordinatY" autocomplete="off">
+      <input type="text" class="form-control" id="coordinatyInput" placeholder="Koordinat Y" formControlName="koordinatY" autocomplete="off" readonly>
     </div>
 
     <div class="button mt-2 d-grid gap-2 text-center">

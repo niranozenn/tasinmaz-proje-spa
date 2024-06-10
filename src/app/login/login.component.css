@@ -14,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: rgba(236, 240, 243); /* Arka plan rengi */
+    background-color: rgba(236, 240, 243); 
     background: #ecf0f3;
 }
 

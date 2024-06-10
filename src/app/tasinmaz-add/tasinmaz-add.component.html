@@ -15,6 +15,7 @@
 
     <div class="form-group mt-2">
       <label for="sehirSelect1">İl Adı</label>
+      
       <select class="form-control" id="sehirSelect1" formControlName="sehir" (change)="onSehirChange()"
         [ngClass]="{'is-invalid': tasinmazForm.get('sehir').invalid && tasinmazForm.get('sehir').touched}">
         <option *ngFor="let sehir of sehirler" [value]="sehir.id">{{ sehir.ad }}</option>

@@ -1,4 +1,3 @@
-// src/app/models/log.model.ts
 export class Log {
     logId: number;
     durum: boolean;

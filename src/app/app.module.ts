@@ -17,6 +17,9 @@ import { KullaniciComponent } from './kullanici/kullanici.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { LogComponent } from './log/log.component';
 import { LogService } from './services/log.service';
+import { NgxSelectModule } from 'ngx-select-ex';
+
+
 
 
 
@@ -37,7 +40,9 @@ import { LogService } from './services/log.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSelectModule
+
    
   ],
   providers: 

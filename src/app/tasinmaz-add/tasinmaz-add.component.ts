@@ -40,7 +40,7 @@ export class TasinmazAddComponent implements OnInit {
   sehirler: Sehir[] = [];
   ilceler: Ilce[] = [];
   mahalleler: Mahalle[] = [];
-  showSuccessAlert: boolean = false; // Yeni özellik
+  showSuccessAlert: boolean = false; 
 
 
   constructor(
@@ -76,10 +76,11 @@ export class TasinmazAddComponent implements OnInit {
     this.mapComponent.coordinateClicked.subscribe((coordinate: [number, number]) => {
       this.tasinmazForm.patchValue({
         
-        koordinatX: coordinate[0].toString(), // sayıyı dizeye dönüştür
-        koordinatY: coordinate[1].toString() // sayıyı dizeye dönüştür
+        koordinatX: coordinate[0].toString(), 
+        koordinatY: coordinate[1].toString() 
       });
     });
+  
   }
 
   onSehirChange() {
@@ -87,7 +88,7 @@ export class TasinmazAddComponent implements OnInit {
     if (selectedSehirId) {
       this.tasinmazService.getIlcelerBySehirId(selectedSehirId).subscribe(ilceler => {
         this.ilceler = ilceler;
-        this.mahalleler = []; // İlçe seçildiğinde mahalleleri temizleyin
+        this.mahalleler = []; 
       });
     }
   }

@@ -30,7 +30,6 @@ export class AuthService {
       .post(this.path + "login", loginUser, { headers: headers, responseType: 'text' })
       .subscribe((data) => {
        
-        // Dönen verinin JWT olduğunu kontrol et
         if (data) {
           this.saveToken(data);
          

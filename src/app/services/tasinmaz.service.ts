@@ -31,12 +31,12 @@ export class TasinmazService {
   getTasinmazlar(): Observable<Tasinmaz[]> {
     return this.http.get<Tasinmaz[]>("https://localhost:44364/api/tasinmaz/getValues")
   }
-  getTasinmaz(tasinmazId: number): Observable<Tasinmaz[]> {
-    return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getTasinmazById/${tasinmazId}`);
+  getTasinmaz(tasinmazId: number): Observable<Tasinmaz> {
+    return this.http.get<Tasinmaz>(`${this.path}tasinmaz/getTasinmazById/${tasinmazId}`);
   }
 
   getUser(): Observable<LoginUser[]> {
-    return this.http.get<LoginUser[]>(`${this.path}Auth/users`);
+    return this.http.get<LoginUser[]>(`${this.path}Users`);
   }
   getTasinmazByUserId(userId: number): Observable<Tasinmaz[]> {
     return this.http.get<Tasinmaz[]>(`${this.path}tasinmaz/getByUserId?userId=${userId}`);

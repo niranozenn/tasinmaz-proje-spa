@@ -4,13 +4,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TasinmazService } from "../services/tasinmaz.service";
 import { Tasinmaz } from "../models/tasinmaz";
 import "ol/ol.css";
-import Map from "ol/Map";
-import View from "ol/View";
-import TileLayer from "ol/layer/Tile";
-import OSM from "ol/source/OSM";
-import { fromLonLat } from "ol/proj";
 import { MapComponent } from "../map/map.component";
 import { AlertifyService } from "../services/alertify.service";
+import { Sehir } from "../models/sehir";
+import { Ilce } from "../models/ilce";
+import { Mahalle } from "../models/mahalle";
 
 @Component({
   selector: "app-tasinmaz-update",
@@ -25,9 +23,9 @@ export class TasinmazUpdateComponent implements OnInit {
   updatedTasinmaz: Tasinmaz = new Tasinmaz();
   selectedTasinmazlar: Tasinmaz[] = [];
   tasinmazId: number;
-  sehirler: any[] = [];
-  ilceler: any[] = [];
-  mahalleler: any[] = [];
+  sehirler: Sehir[] = [];
+  ilceler: Ilce[] = [];
+  mahalleler: Mahalle[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -37,15 +35,15 @@ export class TasinmazUpdateComponent implements OnInit {
     private alertifyService: AlertifyService
   ) {
     this.tasinmazForm = this.fb.group({
-      sehir: ['', Validators.required],
-      ilce: ['', Validators.required],
-      mahalleId: ['', Validators.required],
-      ada: ['', Validators.required],
-      parsel: ['', Validators.required],
-      nitelik: ['', Validators.required],
-      adres: ['', Validators.required],
-      koordinatX: ['', Validators.required],
-      koordinatY: ['', Validators.required]
+      sehir: ["", Validators.required],
+      ilce: ["", Validators.required],
+      mahalleId: ["", Validators.required],
+      ada: ["", Validators.required],
+      parsel: ["", Validators.required],
+      nitelik: ["", Validators.required],
+      adres: ["", Validators.required],
+      koordinatX: ["", Validators.required],
+      koordinatY: ["", Validators.required],
     });
   }
 
@@ -55,27 +53,36 @@ export class TasinmazUpdateComponent implements OnInit {
     });
     this.tasinmazService.getTasinmaz(this.tasinmazId).subscribe((tasinmaz) => {
       this.tasinmazForm.patchValue(tasinmaz);
+      this.tasinmazForm.patchValue({
+        sehir: tasinmaz.mahalle.ilce.sehir.id,
+        ilce: tasinmaz.mahalle.ilce.id,
+        mahalleId: tasinmaz.mahalle.id,
+      });
+      console.log(this.tasinmazForm);
     });
 
     this.tasinmazService.getSehirler().subscribe((data) => {
       this.sehirler = data;
     });
   }
-
-  onSehirChange() {
-    const selectedSehirId = this.tasinmazForm.get("sehir").value;
-    if (selectedSehirId) {
-      this.tasinmazService
-        .getIlcelerBySehirId(selectedSehirId)
-        .subscribe((ilceler) => {
-          this.ilceler = ilceler;
-          this.mahalleler = []; // İlçe seçildiğinde mahalleleri temizleyin
-        });
+//buraya dikkat et!!
+//e[0] çünkü tek eleman seçiyoruz
+  onSehirChange(e: any) {
+    if (e[0].value > 0) {
+      const selectedSehirId = e[0].value;
+      if (selectedSehirId) {
+        this.tasinmazService
+          .getIlcelerBySehirId(selectedSehirId)
+          .subscribe((ilceler) => {
+            this.ilceler = ilceler;
+          });
+      }
     }
   }
 
-  onIlceChange() {
-    const selectedIlceId = this.tasinmazForm.get("ilce").value;
+  onIlceChange(e: any) {
+    if (e[0].value > 0) {
+    const selectedIlceId = e[0].value;
     if (selectedIlceId) {
       this.tasinmazService
         .getMahallelerByIlceId(selectedIlceId)
@@ -84,12 +91,13 @@ export class TasinmazUpdateComponent implements OnInit {
         });
     }
   }
+  }
   ngAfterViewInit() {
     this.mapComponent.coordinateClicked.subscribe(
       (coordinate: [number, number]) => {
         this.tasinmazForm.patchValue({
-          koordinatX: coordinate[0].toString(), // sayıyı dizeye dönüştür
-          koordinatY: coordinate[1].toString(), // sayıyı dizeye dönüştür
+          koordinatX: coordinate[0].toString(),
+          koordinatY: coordinate[1].toString(),
         });
         console.log(coordinate[0]);
       }
@@ -125,7 +133,6 @@ export class TasinmazUpdateComponent implements OnInit {
         .subscribe(() => {
           this.showWarningAlert = true;
 
-          // Belirlenen süre sonunda uyarı mesajını gizlemek için setTimeout kullanın
           setTimeout(() => {
             this.showWarningAlert = false;
             this.router.navigate(["/tasinmaz-liste"]);

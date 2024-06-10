@@ -19,8 +19,14 @@
       ngOnInit() {     
         this.loginForm = new FormGroup({
           userName: new FormControl('', [Validators.required, Validators.email]),
-          password: new FormControl('', [Validators.required, Validators.minLength(8)])
+          password: new FormControl('', [Validators.required, Validators.minLength(8), ], )
         }); 
+      }
+      validatePasswordFormat(control: FormControl) {
+        const password = control.value;
+        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+        const isValid = passwordRegex.test(password);
+        return isValid ? null : { invalidPassword: true };
       }
     
       login() {

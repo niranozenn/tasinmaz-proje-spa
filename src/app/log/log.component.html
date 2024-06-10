@@ -1,13 +1,26 @@
-<app-nav></app-nav>
 
-<div *ngFor="let log of logs" [ngClass]="{ 'card-green': log.durum, 'card-red': !log.durum }" class="log-card">
-  <div class="log-header">
-    <h3>{{ log.islemTipi }}</h3>
-    <p>{{ log.tarih | date:'short' }}</p>
-  </div>
-  <div class="log-body">
-    <p><strong>Açıklama:</strong> {{ log.aciklama }}</p>
-    <p><strong>IP Adresi:</strong> {{ log.logIp }}</p>
-    <p><strong>Kullanıcı ID:</strong> {{ log.userId }}</p>
-  </div>
+
+<app-nav></app-nav>
+<div class="container">
+  <button class="btn btn-primary mb-3" (click)="exportToExcel()">Excel'e Aktar</button>
+  <table class="table-custom">
+    <thead>
+      <tr>
+        <th>İşlem Tipi</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>Log IP</th>
+       <!--<th>User Id</th>--> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of logs" [ngClass]="{ 'table-success': log.durum, 'table-danger': !log.durum }">
+        <td>{{ log.islemTipi }}</td>
+        <td>{{ log.aciklama }}</td>
+        <td>{{ log.tarih | date:'short' }}</td>
+        <td>{{ log.logIp }}</td>
+        <!--<td>{{ log.userId }}</td>--> 
+      </tr>
+    </tbody>
+  </table>
 </div>

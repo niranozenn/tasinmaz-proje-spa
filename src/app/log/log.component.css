@@ -1,28 +1,32 @@
-.log-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    margin: 10px 0;
+.table-custom {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  .container {
+    margin-top: 50px;
   }
   
-  .card-green {
+  
+  .table-custom th,
+  .table-custom td {
+    border: 2px solid #6c757d;
+    padding: 8px;
+  }
+  
+  .table-custom th {
+    background-color: #f8f9fa;
+  }
+  
+  .table-custom tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .table-custom .table-success {
     background-color: #d4edda;
-    border-color: #c3e6cb;
   }
   
-  .card-red {
+  .table-custom .table-danger {
     background-color: #f8d7da;
-    border-color: #f5c6cb;
-  }
-  
-  .log-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .log-body {
-    padding: 10px 0;
   }
   

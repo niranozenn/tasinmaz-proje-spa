@@ -14,8 +14,8 @@ body {
 }
 .form-group {
   display: inline-block;
-  justify-content: center; /* Formu yatayda ortalar */
-  align-items: center; /* Formu dikeyde ortalar */
+  justify-content: center; 
+  align-items: center; 
   
   width: calc(35% - 10px);
   padding: 0.375rem 0.75rem;
@@ -50,7 +50,7 @@ body {
   display: flex;
   padding-left: 25%;
   color: rgb(54, 150, 228);
-  width: 100%; /* Başlığı genişletmek için */
+  width: 100%; 
 }
 
 .button {
@@ -60,18 +60,18 @@ body {
 
 
 .button .btn:hover {
-  background-color: #28a745; /* Hover rengi */
+  background-color: #28a745; 
 }
 
 
 
-.button button { /* Butonu ve içeriğini ortalar */
-  padding: 15px 30px; /* Butonun iç içeriğinden kenarlara olan boşluk */
+.button button { 
+  padding: 15px 30px; 
 
-  color: #fff; /* Yazı rengi */
-  border: none; /* Kenarlık yok */
-  transition: background-color 0.3s ease; /* Geçiş efekti */
-  font-size: 1.2rem; /* Yazı tipi boyutu */
+  color: #fff;
+  border: none; 
+  transition: background-color 0.3s ease; 
+  font-size: 1.2rem; 
   align-items: center;
   margin-right: 35%;
   margin-top: 20px;
@@ -85,6 +85,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 500; /* Gerekirse sayfadaki diğer elemanların üstüne çıkması için */
+  z-index: 500; 
   width: auto;
 }

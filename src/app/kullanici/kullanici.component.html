@@ -1,30 +1,42 @@
 <app-nav></app-nav>
 
 <div *ngIf="showSuccessAlert" class="alert alert-dismissible alert-success">
-  <strong>Taşınmaz başarıyla eklendi.</strong> 
+  <strong>Kullanıcı başarıyla eklendi.</strong> 
 </div>
 
 <body>
-  <form id="userForm" (submit)="registerUser(username.value, password.value, role.value)">
-    <div class="form-group">
-      <label for="username">Kullanıcı Adı:</label>
-      <input type="text" id="username" name="username" required #username>
+
+<form id="userForm" [formGroup]="kullaniciForm" (submit)="registerUser()">
+  <div class="form-group">
+    <label for="username">Kullanıcı Adı:</label>
+    <input type="text" id="username" formControlName="username" class="form-control">
+    <div *ngIf="kullaniciForm.get('username')?.invalid && kullaniciForm.get('username')?.touched" class="text-danger">
+      Kullanıcı adı gereklidir.
     </div>
-    <div class="form-group">
-      <label for="password">Şifre:</label>
-      <input type="password" id="password" name="password" required #password>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Şifre:</label>
+    <input type="password" id="password" formControlName="password" class="form-control">
+    <div *ngIf="kullaniciForm.get('password')?.invalid && kullaniciForm.get('password')?.touched" class="text-danger">
+      Şifre gereklidir ve en az 8 karakter uzunluğunda olmalıdır.
     </div>
-    <div class="form-group">
-      <label for="role">Rol:</label>
-      <input type="text" id="role" name="role" required #role>
-    </div>
-    <button type="submit">Kaydet</button>
-  </form>
+  </div>
+
+  <div class="form-group">
+    <label for="role">Rol:</label>
+    <input type="text" id="role" formControlName="role" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+
   
   <table class="user-table">
     <thead>
       <tr>
-        <th>Seç</th>
+   
         <th>Kullanıcı Adı</th>
         <th>Şifre</th>
         <th>Rol</th>
@@ -33,9 +45,7 @@
     <tbody>
       
       <tr *ngFor="let user of users">
-        <th>
-          <input class="form-check-input" type="checkbox" [value]="user.id" (change)="onCheckboxChange(user.id, $event)" id="flexCheckDefault">
-        </th>
+       
         <td>{{user.userName}}</td>
         <td>{{user.password}}</td>
         <td>{{user.role}}</td>

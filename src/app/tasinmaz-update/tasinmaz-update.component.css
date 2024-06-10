@@ -50,7 +50,7 @@ body {
   display: flex;
   padding-left: 25%;
   color: rgb(153, 153, 0);
-  width: 100%; /* Başlığı genişletmek için */
+  width: 100%; 
 }
 
 .button {
@@ -59,7 +59,7 @@ body {
 }
 
 .button .btn:hover {
-  background-color: rgb(184, 184, 0); /* Hover rengi */
+  background-color: rgb(184, 184, 0); 
 }
 
 .button button { 
@@ -81,7 +81,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 500; /* Gerekirse sayfadaki diğer elemanların üstüne çıkması için */
+  z-index: 500; 
   width: auto;
 }
 

@@ -8,6 +8,8 @@ import { AuthService } from "../services/auth.service";
 import { LoginGuardService } from "../services/login-guard.service";
 import { MapComponent } from "../map/map.component";
 import { Coordinate } from 'ol/coordinate';
+import * as XLSX from 'xlsx';
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -19,6 +21,7 @@ import { Coordinate } from 'ol/coordinate';
 export class TasinmazListeComponent implements OnInit {
   @ViewChild(MapComponent) mapComponent: MapComponent;
   @Output() coordinateClicked = new EventEmitter<Coordinate>();
+  @Output() tasinmazCoordinates = new EventEmitter<[number, number][]>();
 
 
   constructor(
@@ -27,7 +30,7 @@ export class TasinmazListeComponent implements OnInit {
     private router: Router,
     private tasinmazService: TasinmazService,
     private authService: AuthService,
-    private loginGuard: LoginGuardService
+    private loginGuard: LoginGuardService,
   ) {}
 
   selectedTasinmazId: number | null = null;
@@ -39,17 +42,18 @@ export class TasinmazListeComponent implements OnInit {
   pages: number[] = [];
   filteredTasinmazlar: Tasinmaz[] = [];
   searchTerm: string = '';
+  tasinmazFormIsOpen: boolean = true;
 
   showDangerAlert: boolean = false;
   showWarningAlert: boolean = false;
   showUpdateAlert: boolean = false;
 
   ngOnInit() {
-    this.userLogin();
-  }
-  ngAfterViewInit() {
     
+    this.userLogin();
+  
   }
+
 
   userLogin() {
     const userId = this.authService.getUserId();
@@ -58,20 +62,33 @@ export class TasinmazListeComponent implements OnInit {
         this.tasinmazlar = data;
         this.filteredTasinmazlar = this.tasinmazlar;
         this.totalPages = Math.ceil(this.filteredTasinmazlar.length / this.itemsPerPage);
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-        this.paginateTasinmazlar();
+      this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      this.paginateTasinmazlar(); 
+      this.sendCoordinatesToMap();
       });
     } else {
       console.error("User ID bulunamadı");
     }
+   
   }
-
+  sendCoordinatesToMap() {
+    this.mapComponent.setTasinmazCoordinates(this.filteredTasinmazlar);
+  }
+  
+  
+  
+  exportToExcel() {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredTasinmazlar);
+    const workbook: XLSX.WorkBook = { Sheets: { 'Tasinmazlar': worksheet }, SheetNames: ['Tasinmazlar'] };
+    XLSX.writeFile(workbook, 'Tasinmazlar.xlsx');
+  }
+ 
   paginateTasinmazlar() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+    const endIndex = Math.min(startIndex + this.itemsPerPage, this.filteredTasinmazlar.length);
     this.paginatedTasinmazlar = this.filteredTasinmazlar.slice(startIndex, endIndex);
   }
-
+  
   goToPage(page: number) {
     this.currentPage = page;
     this.paginateTasinmazlar();
@@ -83,16 +100,16 @@ export class TasinmazListeComponent implements OnInit {
       this.paginateTasinmazlar();
     }
   }
-
+  
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.paginateTasinmazlar();
     }
   }
-
   onSearch() {
     if (this.searchTerm) {
+      const searchTermLower = this.searchTerm.toLowerCase();
       this.filteredTasinmazlar = this.tasinmazlar.filter(tasinmaz =>
         
         tasinmaz.ada.toString().includes(this.searchTerm) ||
@@ -143,8 +160,7 @@ export class TasinmazListeComponent implements OnInit {
           this.deleteTasinmaz(this.selectedTasinmazId);
         },
         () => {
-          // Hayır'a tıklandığında
-          // Hiçbir işlem yapma, sadece onay kutusunu kapat
+         
         }
       );
     } else {
@@ -161,19 +177,24 @@ export class TasinmazListeComponent implements OnInit {
       this.tasinmazService.deleteTasinmaz(selectedTasinmazId).subscribe(
         () => {
           this.alertifyService.error("Taşınmaz başarıyla silindi.");
-          this.tasinmazService.getTasinmazlar().subscribe((data) => {
-            this.tasinmazlar = data;
-            this.totalPages = Math.ceil(this.tasinmazlar.length / this.itemsPerPage);
-            this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-            this.paginateTasinmazlar();
-          });
-          this.selectedTasinmazId = null;
+          this.tasinmazFormIsOpen = false;
+          setTimeout(() => {
+            this.tasinmazFormIsOpen = true;
+            this.userLogin();
+            this.selectedTasinmazId = null;
+        });
+
         },
+       
         (error) => {
           this.alertifyService.error("Taşınmaz silinirken hata oluştu.");
         }
       );
     }
+  }
+
+  refreshPage(): void {
+    window.location.reload();
   }
 }
 
