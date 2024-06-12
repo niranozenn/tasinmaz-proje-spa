@@ -1,7 +1,8 @@
-
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import * as ol from 'ol';
+
 import OSM from 'ol/source/OSM';
 import 'ol/ol.css';
 import { fromLonLat } from 'ol/proj';
@@ -11,9 +12,15 @@ import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
-import { Style, Icon } from 'ol/style';
-import { Fill, Stroke, Circle as CircleStyle } from 'ol/style';
+import { Style, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
 import { Tasinmaz } from '../models/tasinmaz';
+import TileImage from 'ol/source/TileImage';
+import { environment } from '../../environments/environment';
+declare var google: any;
+
+
+
+
 
 @Component({
   selector: 'app-map',
@@ -27,9 +34,12 @@ export class MapComponent implements OnInit {
   @Output() coordinateClicked = new EventEmitter<Coordinate>();
   vectorSource: VectorSource;
   vectorLayer: VectorLayer<any>;
+  googleLayer: TileLayer<any>; 
+  showGoogleMap: boolean = false; 
   mousemove: Coordinate; 
   mousemoves: string;
   mouseX: number;
+  showOpenStreetMap: boolean = false;
   mouseY: number;
   isMouseOver: boolean;
 
@@ -49,7 +59,7 @@ export class MapComponent implements OnInit {
         })
       })
     });
-
+   
     this.osmLayer = new TileLayer({
       source: new OSM(),
       opacity: this.osmLayerOpacity
@@ -64,7 +74,7 @@ export class MapComponent implements OnInit {
       })
     });
 
-    var scale = new ScaleLine({
+    let scale = new ScaleLine({
       units: 'metric',
       bar: true,
       steps: 4,
@@ -74,8 +84,57 @@ export class MapComponent implements OnInit {
     scale.setTarget('scale-bar');
 
     this.mousePosition();
-    //this.coordinatedClicked(); 
   }
+
+  toggleGoogleMap() {
+    if (!this.showGoogleMap) {
+      if (!this.googleLayer) {
+        this.googleLayer = new TileLayer({
+          source: new TileImage({
+            url: `https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${environment.googleMapsApiKey}`,
+            attributions: '© Google'
+          })
+        });
+      }
+      this.map.removeLayer(this.osmLayer);
+      this.map.addLayer(this.googleLayer);
+    } else {
+      this.map.removeLayer(this.googleLayer);
+    }
+  }
+
+  toggleOSM(){
+    if (!this.showOpenStreetMap) {
+      if (!this.osmLayer) {
+        this.osmLayer = new TileLayer({
+          source: new OSM()
+        });
+      }
+      this.map.addLayer(this.osmLayer);
+    } else {
+      this.map.removeLayer(this.osmLayer);
+    }
+  }
+  
+
+/*
+  toggleGoogleMap() {
+    if (!this.showGoogleMap) {
+      if (!this.googleLayer) {
+        this.googleLayer = new TileLayer({
+          source: new ol.source.TileImage({
+            url: `https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&key=${environment.googleMapsApiKey}`,
+            attributions: '© Google'
+          })
+        });
+      }
+      this.map.addLayer(this.googleLayer);
+    } else {
+      this.map.removeLayer(this.googleLayer);
+    }
+  }
+  
+*/
 
   changeOSMLayerOpacity() {
     this.osmLayer.setOpacity(this.osmLayerOpacity);

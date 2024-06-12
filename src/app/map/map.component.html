@@ -1,16 +1,19 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd7Psk-Fw8F5UqAIF2TMmNjPW00mwhMXM"></script>
 
 <div class="container"> 
   <div id="map" class="map">
-
-  <div id="mouse-position" class="mouse-position" >
-    <p>{{ mousemove }}</p>
+    <div id="mouse-position" class="mouse-position" >
+      <p>{{ mousemove }}</p>
+    </div>
   </div>
-</div>
 </div>
 <div id="scale-line" class="ol-scale-line"></div>
 <strong class="opacity">opacity
-<input type="range" min="0" max="1" step="0.1" [(ngModel)]="osmLayerOpacity" (change)="changeOSMLayerOpacity()">
+  <input type="range" min="0" max="1" step="0.1" [(ngModel)]="osmLayerOpacity" (change)="changeOSMLayerOpacity()">
 </strong>
 
+<input type="checkbox" id="googleMapsCheckbox" (change)="toggleGoogleMap()">
+<label for="googleMapsCheckbox">Google Map</label> 
 
-
+<input type="checkbox" id="googleMapsCheckbox" (change)="toggleOSM()">
+<label for="googleMapsCheckbox">OSM</label> 

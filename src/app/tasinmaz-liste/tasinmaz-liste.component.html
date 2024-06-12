@@ -40,7 +40,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let tasinmaz of paginatedTasinmazlar">
-          <th>
+          <th id="tasinmaz">
             <input class="form-check-input" type="checkbox" [value]="tasinmaz.id" (change)="onCheckboxChange(tasinmaz.id, $event)" id="flexCheckDefault">
           </th>
           <td>{{tasinmaz.mahalle.ilce.sehir.ad}}</td>

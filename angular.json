@@ -28,6 +28,7 @@
               "node_modules/alertifyjs/build/css/alertify.css",
               "node_modules/bootswatch/dist/morph/bootstrap.min.css",
               "node_modules/ol/ol.css"
+              
             ],
             "scripts": ["./node_modules/alertifyjs/build/alertify.min.js"
           ]

@@ -2,7 +2,7 @@ import { Sehir } from "./sehir";
 
 export class Ilce{
     id : number;
-    ad : String;
+    ad : string;
     sehirId : number;
     sehir: Sehir;
 }

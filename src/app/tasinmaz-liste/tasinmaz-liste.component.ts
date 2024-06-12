@@ -9,7 +9,6 @@ import { LoginGuardService } from "../services/login-guard.service";
 import { MapComponent } from "../map/map.component";
 import { Coordinate } from 'ol/coordinate';
 import * as XLSX from 'xlsx';
-import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -172,7 +171,6 @@ export class TasinmazListeComponent implements OnInit {
   }
 
   deleteTasinmaz(selectedTasinmazId: number) {
-    const alertDisplayTime = 3000;
     if (selectedTasinmazId) {
       this.tasinmazService.deleteTasinmaz(selectedTasinmazId).subscribe(
         () => {

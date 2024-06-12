@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Output, EventEmitter } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TasinmazService } from "../services/tasinmaz.service";
 import { Sehir } from "../models/sehir";
@@ -7,20 +7,11 @@ import { Mahalle } from "../models/mahalle";
 import { Tasinmaz } from "../models/tasinmaz";
 import { AlertifyService } from "../services/alertify.service";
 import { Router } from "@angular/router";
-import alertify from 'alertifyjs';
 import 'ol/ol.css';
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
 import { MapComponent } from '../map/map.component';
 import { AuthService } from "../services/auth.service";
-import {  Output, EventEmitter } from '@angular/core';
-import 'ol/ol.css';
 import { Coordinate } from 'ol/coordinate';
-import VectorSource from 'ol/source/Vector';
-import ScaleLine from 'ol/control/ScaleLine';
+
 
 
 
